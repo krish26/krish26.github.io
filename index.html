@@ -395,8 +395,8 @@ canvas#heroCanvas{position:absolute;inset:0;width:100%;height:100%;pointer-event
     <div class="about-left rv-l">
       <div class="chip">Who I am</div>
       <h2>Built on<br><em>ground truth</em><br>&amp; code</h2>
-      <p>I'm a Python engineer working across AI/ML, geospatial data, and backend systems. At Savantic AI Lab I fine-tuned a geospatial AI foundation model end to end and shipped the backend services that put it in front of users, on SID, an open-source AI/GIS platform for the Järfälla municipality.</p>
-      <p>Before that, three years in application security at Accenture. That background gives me an edge: I think in systems, look for failure points, and care about how things actually work under the hood.</p>
+      <p>I'm a Python engineer working across AI/ML, geospatial data, and backend systems. At Savantic AI Lab I fine-tuned a geospatial AI foundation model end to end and shipped the backend services that put it in front of users, on SID, an open-source AI/GIS platform for the Järfälla municipality. Most recently I built The Rules Lawyer, a LangGraph RAG agent that answers questions over a 364-page rulebook with page citations.</p>
+      <p>Before that, over two years in application security at Accenture. That background gives me an edge: I think in systems, look for failure points, and care about how things actually work under the hood.</p>
     </div>
     <div class="about-right">
       <div class="about-card rv">
@@ -446,6 +446,10 @@ canvas#heroCanvas{position:absolute;inset:0;width:100%;height:100%;pointer-event
       <p>A toolkit built across three disciplines &mdash; AI/ML, backend engineering, and application security &mdash; giving me unusual depth in both building systems and stress-testing them.</p>
     </div>
     <div class="skills-grid rv">
+      <div class="skill-block" style="grid-column:1/-1">
+        <div class="skill-block-title">LLM Apps, RAG &amp; Agents</div>
+        <div class="skill-block-tags"><span class="s-tag">RAG</span><span class="s-tag">LangGraph</span><span class="s-tag">LangChain</span><span class="s-tag">Tool-Calling Agents</span><span class="s-tag">ChromaDB</span><span class="s-tag">Embeddings</span><span class="s-tag">LLM Evaluation</span><span class="s-tag">Azure AI Foundry (GPT-4)</span><span class="s-tag">Groq</span><span class="s-tag">Open-Source LLMs (Llama)</span><span class="s-tag">Streamlit</span></div>
+      </div>
       <div class="skill-block">
         <div class="skill-block-title">AI / ML</div>
         <div class="skill-block-tags"><span class="s-tag">TensorFlow</span><span class="s-tag">Scikit-learn</span><span class="s-tag">Pandas</span><span class="s-tag">NumPy</span><span class="s-tag">Prompt Engineering</span><span class="s-tag">LLM Summarization</span><span class="s-tag">Model Fine-Tuning</span></div>
@@ -472,7 +476,7 @@ canvas#heroCanvas{position:absolute;inset:0;width:100%;height:100%;pointer-event
       </div>
       <div class="skill-block" style="grid-column:1/-1">
         <div class="skill-block-title">Currently exploring</div>
-        <div class="skill-block-tags"><span class="s-tag queue">Multi-Agent Systems</span><span class="s-tag queue">Knowledge Graphs</span><span class="s-tag queue">Vector Databases</span><span class="s-tag queue">RAG</span></div>
+        <div class="skill-block-tags"><span class="s-tag queue">Multi-Agent Systems</span><span class="s-tag queue">Knowledge Graphs</span></div>
         <div class="queue-note">Genuine interest, not claimed hands-on experience.</div>
       </div>
     </div>
@@ -650,7 +654,7 @@ canvas#heroCanvas{position:absolute;inset:0;width:100%;height:100%;pointer-event
     }
   }
 
-  /* projects — all 9, from Profile.md, category-coded to match the legend */
+  /* projects — from Profile.md, category-coded to match the legend */
   var COLOR = {ai:'#b9f542', data:'#5a9fd4', auto:'#e5a83c', sec:'#e0645a'};
   var projects = [
     {name:"SID — AI/GIS Platform for Järfälla",cat:'ai',flagship:true,
@@ -662,7 +666,18 @@ canvas#heroCanvas{position:absolute;inset:0;width:100%;height:100%;pointer-event
         {t:"Heat-Island Detection Layer", d:"Urban heat-island layer using Sentinel-3 SLSTR thermal imagery, with heat intensity coloring and SMHI air-temperature integration."},
         {t:"Dynamic World Validation", d:"Validated Google/WRI's Dynamic World land-cover model via Google Earth Engine against 100 Sentinel-2 scenes, producing a 10m-resolution overlay layer."},
         {t:"TerraMind Fine-Tuning", d:"Fine-tuned IBM TerraMind on Sweden's National Land Cover dataset end to end — pipeline, class mapping, training, evaluation — and benchmarked it against ESA WorldCover."},
-        {t:"AI Chat Feature", d:"LLM-based summarization feature that surfaces insights from the heat, land-cover, and vegetation layers in natural language."}
+        {t:"AI Chat Feature", d:"LLM-based summarization feature, built on GPT-4 via Azure AI Foundry, that surfaces insights from the heat, land-cover, and vegetation layers in natural language."}
+      ]},
+    {name:"The Rules Lawyer — RAG Agent",cat:'ai',badge:"LangGraph &middot; RAG &middot; Agent",
+      link:"https://github.com/krish26/RAG_Agent",
+      desc:"A question-answering assistant over the 364-page D&amp;D rules (SRD 5.2.1). Every answer cites its page, and when the rules don't cover something it says so instead of guessing. A web app lets you switch between classic RAG and an agent, and shows the agent's steps under each answer.",
+      tags:["LangGraph","ChromaDB","sentence-transformers","Groq","Streamlit"],
+      breakdown:[
+        {t:"Parsing & Chunking", d:"Converted a two-column, table-heavy PDF to Markdown with pymupdf4llm, then chunked by document structure: every chunk carries its section path and tables are never cut mid-table. 3,618 chunks, 361 with tables."},
+        {t:"Vector Search", d:"Local embeddings with bge-small-en-v1.5, stored in ChromaDB with page and section metadata."},
+        {t:"Grounded Answers", d:"The model may only use retrieved sources, must cite a page after each fact, and must refuse when the sources don't contain the answer."},
+        {t:"Tool-Calling Agent", d:"LangGraph agent (GPT-OSS 120B via Groq) that chooses between vector search and two table-lookup tools over 329 tables."},
+        {t:"Evaluation", d:"Custom 12-question eval set scoring retrieval and answers separately. Classic RAG: 8/12. Agent: 12/12, including both correct refusals. Every RAG failure was a table question."}
       ]},
     {name:"Flask REST API + Cosmos DB",cat:'data',
       desc:"REST API in Flask backed by Azure Cosmos DB, deployed to Azure App Service.",
@@ -693,7 +708,9 @@ canvas#heroCanvas{position:absolute;inset:0;width:100%;height:100%;pointer-event
     row.setAttribute('aria-expanded','false');
     row.style.borderLeft = '2px solid ' + COLOR[p.cat];
     var tagsHtml = p.tags.map(function(t){ return '<span class="proj-tag">'+t+'</span>'; }).join('');
-    var badgeHtml = p.flagship ? '<div class="proj-badge">Savantic AI Lab &middot; Internship project</div>' : '';
+    var badgeHtml = p.flagship ? '<div class="proj-badge">Savantic AI Lab &middot; Internship project</div>'
+      : p.badge ? '<div class="proj-badge">' + p.badge + '</div>' : '';
+    var linkHtml = p.link ? '<a class="proj-tag proj-link" href="' + p.link + '" target="_blank" rel="noopener">View on GitHub &rarr;</a>' : '';
     var breakdownHtml = '';
     if(p.breakdown){
       breakdownHtml = '<div class="proj-breakdown">' + p.breakdown.map(function(b){
@@ -704,7 +721,9 @@ canvas#heroCanvas{position:absolute;inset:0;width:100%;height:100%;pointer-event
       '<div class="proj-num">' + String(idx+1).padStart(2,'0') + '</div>' +
       '<div class="proj-info">' + badgeHtml + '<div class="proj-name">' + p.name + '</div></div>' +
       '<div class="proj-arrow">+</div>' +
-      '<div class="proj-full"><div class="proj-full-inner"><p class="proj-desc">' + p.desc + '</p>' + breakdownHtml + '<div class="proj-tags">' + tagsHtml + '</div></div></div>';
+      '<div class="proj-full"><div class="proj-full-inner"><p class="proj-desc">' + p.desc + '</p>' + breakdownHtml + '<div class="proj-tags">' + tagsHtml + linkHtml + '</div></div></div>';
+    var a = row.querySelector('.proj-link');
+    if (a) a.addEventListener('click', function(e){ e.stopPropagation(); });
     row.addEventListener('click', function(){
       var open = row.getAttribute('aria-expanded') === 'true';
       row.setAttribute('aria-expanded', open ? 'false' : 'true');
